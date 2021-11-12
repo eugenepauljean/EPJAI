@@ -1,0 +1,2 @@
+# EPJAI
+Archlinux Installer
