@@ -9,7 +9,7 @@
 ###      https://discord.gg/RETZdJfpYZ         ##
 #################################################
 prepare_setup () {
-        pacman -Sy --noconfirm --needed dialog pacman-contrib
+        pacman -Sy --noconfirm --needed dialog pacman-contrib reflector
 }
 ask_select_mirrors () {
         if (dialog --clear --title "EUGENE-PAUL-JEAN-ARCH-INSTALLER" --yesno "\nThis script aims to minimize Archlinux installation steps, while respecting the handbook\n\n\nIt is recommended to check the fastest mirrors near your worldwide location...\n\n---Download the latest 50 up-to-date mirrors\n---Perform and sort the best for your location\n\n\nEstimated time : 45 seconds" 30 80)
