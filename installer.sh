@@ -9,13 +9,14 @@
 ###      https://discord.gg/RETZdJfpYZ         ##
 #################################################
 prepare_setup () {
-        pacman -Sy --noconfirm --needed dialog pacman-contrib reflector
+        pacman -Sy --noconfirm --needed dialog pacman-contrib ncurses
 }
 ask_select_mirrors () {
         if (dialog --clear --title "EUGENE-PAUL-JEAN-ARCH-INSTALLER" --yesno "\nThis script aims to minimize Archlinux installation steps, while respecting the handbook\n\n\nIt is recommended to check the fastest mirrors near your worldwide location...\n\n---Download the latest 50 up-to-date mirrors\n---Perform and sort the best for your location\n\n\nEstimated time : 45 seconds" 30 80)
         then
             reflector > /etc/pacman.d/mirrorlist.latestupdate
             sed -i 50q /etc/pacman.d/mirrorlist.latestupdate
+            clear
             echo -e "\033[31;5mMirrorlist test in progress...waiting 45 seconds....\033[0m"
             rankmirrors -n 10 /etc/pacman.d/mirrorlist.latestupdate > /etc/pacman.d/mirrorlist
         else
@@ -108,7 +109,7 @@ create_partition () {
             parted -s /dev/$disknametarget mklabel msdos
             parted -s /dev/$disknametarget mkpart primary ext4 1MiB 150MiB
             parted -s /dev/$disknametarget set 1 boot on
-            parted -s /dev/$disknametarget mkpart primary 150MiB 100%
+            parted -s /dev/$disknametarget mkpart primary ext4 150MiB 100%
             mkfs.ext4 /dev/${disknametarget}${part1}
             mkfs.ext4 /dev/${disknametarget}${part2}
             mount /dev/${disknametarget}${part2} /mnt
